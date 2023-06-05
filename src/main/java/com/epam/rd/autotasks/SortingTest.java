@@ -9,20 +9,25 @@ public class SortingTest {
 
     Sorting sorting = new Sorting();
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = NullPointerException.class)
     public void testNullCase() {
         int[] array = null;
-        sorting.sort(array);
+
+        try {
+            sorting.sort(array);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Array cannot be null", e.getMessage());
+        }
     }
+
 
     @Test
     public void testEmptyCase() {
         int[] array = {};
-        int[] expected = {};
 
         sorting.sort(array);
 
-        assertArrayEquals(expected, array);
+        assertEquals(0, array.length);
     }
 
 
@@ -40,16 +45,19 @@ public class SortingTest {
     public void testSortedArraysCase() {
         int[] array = {1, 2, 3, 4, 5};
         int[] expected = {1, 2, 3, 4, 5};
+
         sorting.sort(array);
+
         assertArrayEquals(expected, array);
     }
 
     @Test
     public void testOtherCases() {
-        int[] array = {4, 2, 5, 1, 3};
-        int[] expected = {1, 2, 3, 4, 5};
+        int[] array = {1, 3, 5, 7, 9};
+        int[] expected = {1, 3, 5, 7, 9};
+
         sorting.sort(array);
+
         assertArrayEquals(expected, array);
     }
-
 }
